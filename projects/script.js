@@ -27,17 +27,17 @@ document.addEventListener('visibilitychange', function () {
 });
 
 // Fetch projects start
-async function getProjects() {
+async function fetchData(type = "skills") {
     try {
-        const response = await fetch("projects.json");
-        if (!response.ok) throw new Error('Network response was not ok');
-        const data = await response.json();
-        return data;
+        const response = await fetch(type === "skills" ? "skills.json" : "./projects/projects.json");
+        if (!response.ok) throw new Error('Network response was not ok.');
+        return await response.json();
     } catch (error) {
-        console.error('Error fetching projects:', error);
-        return [];
+        console.error('Fetch error:', error);
+        // Optionally display an error message to the user
     }
 }
+
 
 function showProjects(projects) {
     let projectsContainer = document.querySelector(".work .box-container");
